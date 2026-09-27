@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catálogo</title>
+  <meta name="description" content="Catálogo de produtos disponíveis">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="wrap">
+      <div class="marca"><span id="nomeLoja">Catálogo</span><small id="slogan"></small></div>
+      <div class="espaco"></div>
+      <a class="btn zap peq" id="zapTopo" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="filtros">
+      <input type="search" id="busca" placeholder="Buscar produto…" aria-label="Buscar">
+      <select id="ordem" aria-label="Ordenar">
+        <option value="recentes">Mais recentes</option>
+        <option value="menor">Menor preço</option>
+        <option value="maior">Maior preço</option>
+      </select>
+    </div>
+    <div class="chips" id="chips"></div>
+    <p class="meta" id="contagem" style="color:var(--txt2);font-size:.85rem"></p>
+    <div class="grade" id="grade"><div class="vazio">Carregando…</div></div>
+  </main>
+
+  <footer class="rodape" id="rodape"></footer>
+
+  <div class="modal" id="modal" hidden>
+    <div class="caixa">
+      <button class="btn fechar" id="fechar" aria-label="Fechar">✕</button>
+      <div class="corpo" id="modalCorpo"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/catalogo.js"></script>
+</body>
+</html>

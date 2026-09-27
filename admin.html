@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- LOGIN -->
+  <section id="telaLogin" hidden>
+    <form class="login" id="formLogin">
+      <h1>Entrar no painel</h1>
+      <div class="campo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="campo"><label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password" required></div>
+      <p class="erro" id="erroLogin"></p>
+      <button class="btn pri bloco" id="btnEntrar">Entrar</button>
+    </form>
+  </section>
+
+  <!-- PAINEL -->
+  <section id="telaApp" hidden>
+    <header class="topo">
+      <div class="wrap">
+        <div class="marca"><span id="nomeLoja">Painel</span><small>Painel de controle</small></div>
+        <nav class="abas">
+          <button data-aba="produtos" class="ativo">Produtos</button>
+          <button data-aba="categorias">Categorias</button>
+        </nav>
+        <div class="espaco"></div>
+        <a class="btn peq" href="./" target="_blank">Ver catálogo</a>
+        <button class="btn peq" id="sair">Sair</button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <!-- aba produtos -->
+      <div id="abaProdutos">
+        <div class="stats" id="stats"></div>
+        <div class="filtros">
+          <input type="search" id="busca" placeholder="Buscar…" aria-label="Buscar">
+          <select id="fCat" aria-label="Categoria"></select>
+          <select id="fStatus" aria-label="Status">
+            <option value="estoque">Em estoque (não vendidos)</option>
+            <option value="todos">Todos</option>
+            <option value="rascunho">Rascunho</option>
+            <option value="disponivel">Disponível</option>
+            <option value="reservado">Reservado</option>
+            <option value="vendido">Vendido</option>
+          </select>
+          <div class="espaco"></div>
+          <button class="btn peq" id="exportar">Exportar planilha</button>
+          <button class="btn pri" id="novo">+ Novo produto</button>
+        </div>
+        <div class="lista" id="lista"></div>
+      </div>
+
+      <!-- aba categorias -->
+      <div id="abaCategorias" hidden>
+        <form class="filtros" id="formCat">
+          <input id="novaCat" placeholder="Nova categoria (ex.: Fontes)" required style="max-width:320px">
+          <button class="btn pri">Adicionar</button>
+        </form>
+        <p style="color:var(--txt2);font-size:.85rem;margin-top:0">A ordem define a sequência dos filtros no catálogo (menor número aparece primeiro).</p>
+        <div id="listaCats"></div>
+      </div>
+    </main>
+  </section>
+
+  <!-- EDITOR DE PRODUTO -->
+  <div class="modal" id="modal" hidden>
+    <div class="caixa" style="max-width:760px">
+      <button class="btn fechar" id="fechar" aria-label="Fechar">✕</button>
+      <form class="corpo" id="formProd">
+        <h2 id="tituloEditor" style="margin-top:0">Novo produto</h2>
+
+        <div class="campo">
+          <label>Fotos <span style="font-weight:400">(a primeira é a capa · dá para colar com Ctrl+V)</span></label>
+          <div class="fotos-edit" id="fotosEdit"></div>
+          <input type="file" id="inFotos" accept="image/*" multiple hidden>
+        </div>
+
+        <div class="campo"><label for="f_nome">Nome *</label><input id="f_nome" required placeholder="Ex.: Ryzen 5 5600X"></div>
+        <div class="linha">
+          <div class="campo"><label for="f_categoria">Categoria</label><select id="f_categoria"></select></div>
+          <div class="campo"><label for="f_condicao">Condição</label>
+            <select id="f_condicao">
+              <option>Usado</option><option>Seminovo</option><option>Novo</option><option>Com defeito / para peças</option>
+            </select></div>
+          <div class="campo"><label for="f_status">Status</label>
+            <select id="f_status">
+              <option value="rascunho">Rascunho (não aparece)</option>
+              <option value="disponivel">Disponível</option>
+              <option value="reservado">Reservado</option>
+              <option value="vendido">Vendido (sai do catálogo)</option>
+            </select></div>
+        </div>
+        <div class="linha">
+          <div class="campo"><label for="f_preco">Preço de venda (R$)</label><input id="f_preco" inputmode="decimal" placeholder="Vazio = “Consultar”"></div>
+          <div class="campo" style="display:flex;align-items:end"><label class="check"><input type="checkbox" id="f_destaque"> Destacar no catálogo</label></div>
+        </div>
+        <div class="campo"><label for="f_descricao">Descrição (aparece no catálogo)</label>
+          <textarea id="f_descricao" placeholder="Especificações, estado, o que acompanha, garantia…"></textarea></div>
+
+        <div class="privado">
+          <h4>🔒 Só você vê</h4>
+          <div class="linha">
+            <div class="campo"><label for="f_custo">Custo (R$)</label><input id="f_custo" inputmode="decimal"></div>
+            <div class="campo"><label for="f_onde">Onde comprei</label><input id="f_onde" placeholder="OLX, lote, fornecedor…"></div>
+          </div>
+          <div class="linha" id="blocoVenda">
+            <div class="campo"><label for="f_preco_venda">Vendido por (R$)</label><input id="f_preco_venda" inputmode="decimal"></div>
+            <div class="campo"><label for="f_vendido_em">Data da venda</label><input id="f_vendido_em" type="date"></div>
+          </div>
+          <div class="campo"><label for="f_obs">Anotações</label><textarea id="f_obs" style="min-height:60px"></textarea></div>
+        </div>
+
+        <p class="erro" id="erroProd"></p>
+        <div class="rodape-form">
+          <button type="button" class="btn perigo" id="excluir">Excluir</button>
+          <div style="display:flex;gap:10px">
+            <button type="button" class="btn" id="cancelar">Cancelar</button>
+            <button class="btn pri" id="salvar">Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
