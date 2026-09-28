@@ -9,10 +9,10 @@ export const CONFIG = {
   // NUNCA coloque aqui a "secret" / "service_role".
   SUPABASE_KEY: 'sb_publishable_BbUw9SGmNfvKqRGAGRLRVQ_bti0FLMY',
 
-  NOME_LOJA: 'Minha Loja',
+  NOME_LOJA: 'Loja',
   SLOGAN: 'Hardware e eletrônicos revisados, prontos pra uso',
-  CIDADE: 'Sua cidade - UF',
+  CIDADE: 'São Paulo',
 
   // WhatsApp só com números: 55 + DDD + número. Ex.: 5511987654321
-  WHATSAPP: '5511999999999',
+  WHATSAPP: '5511943778769',
 };
